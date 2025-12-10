@@ -1,0 +1,19 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: dev
+  namespace: dbt-pipeline
+spec:
+  subscriptions:
+    warehouse: dbt-images
+  promotionMechanisms:
+    gitRepoUpdates:
+    - repoURL: https://github.com/jbluemel/dbt-gitops.git
+      writeBranch: main
+      kustomize:
+        images:
+        - image: ghcr.io/jbluemel/dbt-postgres
+          path: environments/dev
+    argoCDAppUpdates:
+    - appName: dbt-dev
+      appNamespace: argocd
