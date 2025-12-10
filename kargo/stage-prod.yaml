@@ -1,7 +1,7 @@
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
-  name: staging
+  name: prod
   namespace: dbt-pipeline
 spec:
   requestedFreight:
@@ -10,7 +10,7 @@ spec:
       name: dbt-images
     sources:
       stages:
-      - dev
+      - staging
   promotionTemplate:
     spec:
       vars:
@@ -28,7 +28,7 @@ spec:
       - uses: kustomize-set-image
         as: update-image
         config:
-          path: ./out/environments/staging
+          path: ./out/environments/prod
           images:
           - image: ${{ vars.imageRepo }}
             tag: ${{ imageFrom(vars.imageRepo).Tag }}
@@ -45,5 +45,5 @@ spec:
       - uses: argocd-update
         config:
           apps:
-          - name: dbt-staging
+          - name: dbt-prod
             namespace: argocd
