@@ -6,4 +6,4 @@ resources:
 namePrefix: staging-
 images:
 - name: ghcr.io/jbluemel/dbt-postgres
-  newTag: latest
+  newTag: 1.0.30
