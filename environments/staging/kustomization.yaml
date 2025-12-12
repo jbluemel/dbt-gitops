@@ -6,7 +6,7 @@ resources:
 namePrefix: staging-
 images:
 - name: ghcr.io/jbluemel/dbt-postgres
-  newTag: 1.0.30
+  newTag: 1.0.31
 patches:
 - path: cronjob-patch.yaml
   target:
