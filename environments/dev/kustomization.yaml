@@ -6,7 +6,7 @@ resources:
 namePrefix: dev-
 images:
 - name: ghcr.io/jbluemel/dbt-postgres
-  newTag: 1.0.31
+  newTag: 1.0.32
 patches:
 - path: cronjob-patch.yaml
   target:
