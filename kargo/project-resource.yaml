@@ -1,0 +1,13 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Project
+metadata:
+  name: dbt-project
+  namespace: kargo-v2
+spec:
+  promotionPolicies:
+  - stage: dev
+    autoPromotionEnabled: true
+  - stage: staging
+    autoPromotionEnabled: false
+  - stage: prod
+    autoPromotionEnabled: false

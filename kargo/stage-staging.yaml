@@ -36,8 +36,7 @@ spec:
         as: commit
         config:
           path: ./out
-          messageFromSteps:
-          - update-image
+          message: "Update ${{ vars.imageRepo }} to ${{ imageFrom(vars.imageRepo).Tag }} in staging"
       - uses: git-push
         config:
           path: ./out

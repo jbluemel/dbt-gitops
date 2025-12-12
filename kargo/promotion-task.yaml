@@ -1,0 +1,34 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: PromotionTask
+metadata:
+  name: update-image
+  namespace: dbt-pipeline
+spec:
+  vars:
+  - name: gitRepo
+  - name: imageRepo
+  - name: targetPath
+  - name: environment
+  steps:
+  - uses: git-clone
+    config:
+      repoURL: ${{ vars.gitRepo }}
+      checkout:
+      - branch: main
+        path: ./out
+  - uses: kustomize-set-image
+    as: update-image
+    config:
+      path: ${{ vars.targetPath }}
+      images:
+      - image: ${{ vars.imageRepo }}
+        tag: ${{ imageFrom(vars.imageRepo).Tag }}
+  - uses: git-commit
+    as: commit
+    config:
+      path: ./out
+      message: "Update ${{ vars.imageRepo }} to ${{ imageFrom(vars.imageRepo).Tag }} in ${{ vars.environment }}"
+  - uses: git-push
+    config:
+      path: ./out
+      targetBranch: main

@@ -7,4 +7,6 @@ spec:
   subscriptions:
   - image:
       repoURL: ghcr.io/jbluemel/dbt-postgres
+      imageSelectionStrategy: SemVer
+      semverConstraint: '*'
       discoveryLimit: 5

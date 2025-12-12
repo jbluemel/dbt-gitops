@@ -12,35 +12,18 @@ spec:
       direct: true
   promotionTemplate:
     spec:
-      vars:
-      - name: gitRepo
-        value: https://github.com/jbluemel/dbt-gitops.git
-      - name: imageRepo
-        value: ghcr.io/jbluemel/dbt-postgres
       steps:
-      - uses: git-clone
-        config:
-          repoURL: ${{ vars.gitRepo }}
-          checkout:
-          - branch: main
-            path: ./out
-      - uses: kustomize-set-image
-        as: update-image
-        config:
-          path: ./out/environments/dev
-          images:
-          - image: ${{ vars.imageRepo }}
-            tag: ${{ imageFrom(vars.imageRepo).Tag }}
-      - uses: git-commit
-        as: commit
-        config:
-          path: ./out
-          messageFromSteps:
-          - update-image
-      - uses: git-push
-        config:
-          path: ./out
-          targetBranch: main
+      - task:
+          name: update-image
+        vars:
+        - name: gitRepo
+          value: https://github.com/jbluemel/dbt-gitops.git
+        - name: imageRepo
+          value: ghcr.io/jbluemel/dbt-postgres
+        - name: targetPath
+          value: ./out/environments/dev
+        - name: environment
+          value: dev
       - uses: argocd-update
         config:
           apps:
