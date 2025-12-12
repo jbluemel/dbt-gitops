@@ -12,13 +12,13 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
-          imagePullSecrets:           
-          - name: ghcr-secret       
+          imagePullSecrets:
+          - name: ghcr-secret
           containers:
           - name: dbt
             image: ghcr.io/jbluemel/dbt-postgres:latest
             imagePullPolicy: Always
-            command: ["dbt", "run", "--select", "stg_orders"]
+            command: ["dbt", "build"]
             env:
             - name: DBT_PASSWORD
               valueFrom:
