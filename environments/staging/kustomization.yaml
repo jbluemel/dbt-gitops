@@ -7,3 +7,8 @@ namePrefix: staging-
 images:
 - name: ghcr.io/jbluemel/dbt-postgres
   newTag: 1.0.30
+patches:
+- path: cronjob-patch.yaml
+  target:
+    kind: CronJob
+    name: dbt-run
