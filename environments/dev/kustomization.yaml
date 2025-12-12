@@ -6,4 +6,4 @@ resources:
 namePrefix: dev-
 images:
 - name: ghcr.io/jbluemel/dbt-postgres
-  newTag: 1.0.30
+  newTag: 1.0.31
